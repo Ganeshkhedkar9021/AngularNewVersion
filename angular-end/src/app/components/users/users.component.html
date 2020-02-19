@@ -1,0 +1,97 @@
+<div>&nbsp; &nbsp;</div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-md-6">
+            Users 
+          </div>
+          <div class="col-md-6 text-right" *ngIf="isList">
+            <button type="button"  class="btn btn-success pull-right" (click)="addUser()">Add User</button> 
+          </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf ="isList;else addUserFrm">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf ="users.length>0; else noData">
+              <tr *ngFor = "let user of users">
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                  <i class='fas fa-pencil-alt' (click)='editUser(user)' ></i>&nbsp;
+                  <i class='far fa-trash-alt'></i>&nbsp;
+                  <i class="fa fa-ban"></i>&nbsp;
+                  <i class='far fa-check-square'></i>
+                </td>
+              </tr>
+            </ng-container >
+            <ng-template #noData>
+              <tr>
+                <td colspan="4" class="text-center">No  Users Found.</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-template  #addUserFrm>
+        <form (ngSubmit)="addUser()" >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >First Name:</label>
+                <input type="text" class="form-control" placeholder="Enter first name" name="firstname" [(ngModel)]="userInfo.firstname" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Last Name:</label>
+                <input type="text" class="form-control" placeholder="Enter last name"  name="lastname" [(ngModel)]="userInfo.lastname" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Email:</label>
+                <input type="text" class="form-control" placeholder="Enter email"  name="email" [(ngModel)]="userInfo.email"  />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label >Status:</label>
+                <select class="form-control"  name="status"  [(ngModel)]="userInfo.status"   >
+                  <option value="1">Active</option>
+                  <option value="0">Inactive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-11">
+            </div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+            </div>
+          </div>
+          <!-- <div class="form-group form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox"> Remember me
+            </label>
+          </div> -->
+         
+        </form>
+      </ng-template>
+    </div>
+  </div>
+</div>
